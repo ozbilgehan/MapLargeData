@@ -1,0 +1,91 @@
+<html ng-app="main">
+<title>SVG</title>
+	<script src="angular.js"></script>
+	<script src="mapController.js"></script>
+
+	<link rel="stylesheet" href="leaflet.css" />
+	<link rel="stylesheet" href="screen.css" />
+	
+	<script>L_PREFER_CANVAS = true;</script>
+	<script src="leaflet.js"></script>	
+	<script src="realworld.50000.1.js"></script>
+	<script src="realworld.50000.2.js"></script>
+	
+	 <script src="rtree.js"></script>
+    <script src="leaflet.layerindex.js"></script>
+    <script src="infocontrol.js"></script>
+	<style>
+		#map {
+            position: absolute;
+            top:0;
+            left: 0;
+            right: 0;
+            bottom:0;
+        }
+
+        .leaflet-infocontrol {
+            font-size: 25px !important;
+            top:50px;
+        }
+
+        .help {
+            font-size: 1.5em;
+            position: absolute;
+            top:0;
+            left: 0;
+            right: 0;
+            height: 30px;
+            z-index: 10;
+            background-color: rgba(0,0,0,0.5);
+            color: white;
+            padding: 10px;
+            margin: 0px;
+            text-align: center;
+        }
+        .help a.sources {
+            float: left;
+            margin-left: 50px;
+            color: white;
+        }
+        .help a.logo {
+            float: right;
+        }
+        .help a.logo img {
+            height: 30px;
+        }
+	</style>
+	
+<body ng-controller="MapController">
+{{message}}
+
+	<div id="map"></div>	
+
+	<script type="text/javascript">
+		L.Map.include(L.LayerIndexMixin);
+
+		var map = L.map('map');
+        L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png').addTo(map);
+        map.fitWorld();
+        map.addControl(new L.Control.Information());
+
+        for (var i = 0; i < addressPoints.length; i++) {
+			var a = addressPoints[i];
+            var lat = a[0]
+              , lng = a[1];
+            var layer = L.circleMarker(L.latLng([lat, lng]), {radius:5}).addTo(map);
+            map.indexLayer(layer);
+        }
+		
+		for (var i = 0; i < addressPoints2.length; i++) {
+			var a = addressPoints[i];
+            var lat = a[0]
+              , lng = a[1];
+            var layer = L.circleMarker(L.latLng([lat, lng]), {radius:5}).addTo(map);
+            map.indexLayer(layer);
+        }
+
+        map.fire('moveend');
+	</script>
+	
+</body>
+</html>
