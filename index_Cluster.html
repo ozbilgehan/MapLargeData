@@ -62,7 +62,21 @@
 			var marker = L.marker(L.latLng(a[0], a[1]), { title: title });
 			marker.bindPopup(title);
 			markerList.push(marker);
-		}		
+		}
+		for (var i = 0; i < addressPoints.length; i++) {
+			var a = addressPoints[i];
+			var title = a[2];
+			var marker = L.marker(L.latLng(a[0], a[1]), { title: title });
+			marker.bindPopup(title);
+			markerList.push(marker);
+		}
+		for (var i = 0; i < addressPoints2.length; i++) {
+			var a = addressPoints[i];
+			var title = a[2];
+			var marker = L.marker(L.latLng(a[0], a[1]), { title: title });
+			marker.bindPopup(title);
+			markerList.push(marker);
+		}	
 		//console.log('start clustering: ' + window.performance.now());
 
 		markers.addLayers(markerList);
